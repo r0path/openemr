@@ -26,6 +26,15 @@ function ttGetY(elem) {
  return y;
 }
 
+function escapeHtml(unsafe) {
+ return unsafe
+  .replace(/&/g, "&amp;")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;")
+  .replace(/"/g, "&quot;")
+  .replace(/'/g, "&#039;");
+}
+
 var ttTimerId = 0;
 var ttElem = null;
 var ttobject = null;
@@ -49,7 +58,7 @@ function ttMake() {
  $.get(ttUrl, function(data) {
   if (!ttWantContent) return;
   ttobject = document.getElementById("tooltipdiv");
-  ttobject.innerHTML = data;
+  ttobject.innerHTML = escapeHtml(data);
   var x = ttGetX(ttElem);
   var dw = window.innerWidth ? window.innerWidth - 20 : document.body.clientWidth;
   if (dw && dw < (x + ttobject.offsetWidth)) {
