@@ -57,6 +57,15 @@ var check_count = 0;
 
 }(this.jQuery || this.Zepto));
 
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 $(function () {
 
     /* show hide on click  */
@@ -146,7 +155,7 @@ $(function () {
                         req_list: $("#fax_reciever").val(),
                     },
                     success: function (thedata) {
-                        $("#facility_fax_no").html(thedata);
+                        $("#facility_fax_no").html(escapeHtml(thedata));
 
                     },
                     error: function () {
